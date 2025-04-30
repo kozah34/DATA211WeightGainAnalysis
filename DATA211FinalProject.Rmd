@@ -1,0 +1,45 @@
+---
+title: "DATA211FinalProject"
+author: "Derrick Nyagesuka"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+## load libraries
+```{r}
+library(readxl)
+library(ggplot2)
+library(plotly)
+```
+
+```{r}
+weightGainAnalysis <- read_xlsx("~/Desktop/DATA 211/weightGainData.xlsx")
+weightGainAnalysis
+
+normalWeight <- weightGainAnalysis$weight[1:7]
+increasedWeight <- weightGainAnalysis$weight[8:14]
+
+## 2-sample T-test
+t.test(increasedWeight, normalWeight, alternative = "greater")
+
+
+```
+
+```{r}
+# Line Graph: Daily Weight
+# Add a column named 'Day' with values 1 to 14
+weightGainAnalysis$Day <- 1:14
+
+ggplot(data=weightGainAnalysis, aes(x=Day, y=weight))+
+  geom_line(color="blue", linetype="dotdash")+
+  geom_point(color = "blue", size = 2)+
+  labs(title="weight over 14 days",x="Day", y=("Weight(lbs)"))
+
+
+
+```
+
+
+
+
+
